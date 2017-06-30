@@ -18,5 +18,5 @@ print "Config vim..."
 subprocess.call("cp ./.vimrc ~/", shell = True)
 subprocess.call("git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/Vundle.vim", shell = True)
 subprocess.call("vim +BundleInstall +qall", shell = True)
-subprocess.call("cd ~/.vim/bundle/YouCompleteMe & python install.py", shell = True)
+subprocess.call("python ~/.vim/bundle/YouCompleteMe/install.py", shell = True)
 print "Config vim done." 
