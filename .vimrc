@@ -1,3 +1,30 @@
+syntax on "grammar highlighting
+set number "显示行数
+"set cursorline                " 突出显示当前行
+"自动缩进
+set autoindent
+set cindent
+set backspace=indent,eol,start
+"自动补全
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {<CR>}<ESC>O
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
+function! ClosePair(char)
+	if getline('.')[col('.') - 1] == a:char
+		return "\<Right>"
+	else
+		return a:char
+	endif
+endfunction
+filetype plugin indent on 
+"打开文件类型检测, 加了这句才可以用智能补全
+set completeopt=longest,menu
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -52,4 +79,3 @@ let g:indentLine_enabled = 1
 
 
 let g:molokai_original = 1
-set number
