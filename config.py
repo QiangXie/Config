@@ -16,7 +16,7 @@ print "Config tmux done."
 #config vim 
 print "Config vim..."
 subprocess.call("cp ./.vimrc ~/", shell = True)
-subprocess.call("git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/Vundle.vim", shell = True)
+subprocess.call("git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim", shell = True)
 subprocess.call("vim +BundleInstall +qall", shell = True)
 subprocess.call("python ~/.vim/bundle/YouCompleteMe/install.py", shell = True)
 print "Config vim done." 
