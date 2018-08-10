@@ -1,14 +1,15 @@
 syntax on "grammar highlighting
 set number "显示行数
-"set cursorline                " 突出显示当前行
-"自动缩进
+set cursorline                " 突出显示当前行
 set autoindent
 set cindent
+set tabstop=4
 set backspace=indent,eol,start
-"自动补全
+
+"括号自动补全
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {}<Esc>i
+:inoremap { {}<ESC>i
 :inoremap } <c-r>=ClosePair('}')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
@@ -40,9 +41,13 @@ Plugin 'VundleVim/Vundle.vim'
 "code comlpetion engine
 Plugin 'Valloric/YouCompleteMe'
 "a tree explorer plugin for vim
+Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'Yggdroot/indentLine'
+Plugin 'luochen1990/rainbow'
+Plugin 'scrooloose/syntastic'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -73,9 +78,37 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "open a NERDTree
 nmap <F5> :NERDTreeToggle<cr>
 
-"indent Line setting"
+"indent Line setting
 let g:indentLine_char = '|'
 let g:indentLine_enabled = 1
-
-
 let g:molokai_original = 1
+let g:rainbow_active = 1
+let g:Powerline_symbols = 'fancy'
+
+
+"syntastic setting
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+"Quickly Run
+map <F5> :call ComileRunGcc()<CR>
+
+func! ComileRunGcc()
+	exec "w"
+	if &filetype == "c"
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'python'
+		exec "!time python %"
+	endif
+endfunc
+
