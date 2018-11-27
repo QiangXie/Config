@@ -4,6 +4,22 @@ import subprocess
 import shutil
 import getpass
 
+#config git
+if not os.path.exists("/usr/bin/git"):
+    print("git hasn't been installed, please install git first.")
+    exit(1)
+subprocess.Popen("git config --global user.name \"QiangXie\"", shell=True)
+subprocess.Popen("git config --global user.email \"happyxieqiang@qq.com\"", shell=True)
+subprocess.Popen("git config --global alias.lg \"log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit --date=relative\"", shell=True)
+subprocess.Popen("git config --global alias.ci commit", shell=True)
+subprocess.Popen("git config --global alias.co checkout", shell=True)
+subprocess.Popen("git config --global alias.st status", shell=True)
+subprocess.Popen("git config --global alias.br branch", shell=True)
+subprocess.Popen("git config --global alias.psm \"push origin master\"", shell=True)
+subprocess.Popen("git config --global alias.plm \"pull origin master\"", shell=True)
+subprocess.Popen("git config --global core.editor \"vim\"", shell=True)
+subprocess.Popen("git config --global color.ui true", shell=True)
+exit()
 
 #config zsh
 print("Config zsh...")
