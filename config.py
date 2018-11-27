@@ -5,6 +5,7 @@ import shutil
 import getpass
 
 #config git
+print("Config git...")
 if not os.path.exists("/usr/bin/git"):
     print("git hasn't been installed, please install git first.")
     exit(1)
@@ -19,7 +20,7 @@ subprocess.Popen("git config --global alias.psm \"push origin master\"", shell=T
 subprocess.Popen("git config --global alias.plm \"pull origin master\"", shell=True)
 subprocess.Popen("git config --global core.editor \"vim\"", shell=True)
 subprocess.Popen("git config --global color.ui true", shell=True)
-exit()
+print("Config done.")
 
 #config zsh
 print("Config zsh...")
