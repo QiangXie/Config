@@ -76,7 +76,7 @@ autocmd vimenter * if !argc() | endif
 "Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 "open a NERDTree
-nmap <F5> :NERDTreeToggle<cr>
+nmap <F4> :NERDTreeToggle<cr>
 
 "indent Line setting
 let g:indentLine_char = '|'
