@@ -4,6 +4,11 @@ import subprocess
 import shutil
 import getpass
 
+#htop
+if not os.path.exists("/usr/bin/htop"):
+    print("htop hasn't been installed, please install htop first.")
+    exit(1)
+
 #config git
 print("Config git...")
 if not os.path.exists("/usr/bin/git"):
