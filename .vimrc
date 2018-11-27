@@ -1,6 +1,6 @@
 syntax on "grammar highlighting
 set number "显示行数
-set cursorline                " 突出显示当前行
+"set cursorline                " 突出显示当前行
 set autoindent
 set cindent
 set tabstop=4
@@ -46,7 +46,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'luochen1990/rainbow'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 
 
 " All of your Plugins must be added before the following line
