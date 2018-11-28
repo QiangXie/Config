@@ -6,6 +6,7 @@ import getpass
 
 #get user name
 username = getpass.getuser()
+cwd = os.getcwd()
 
 #htop
 print("Check htop...")
@@ -32,6 +33,35 @@ if not os.path.exists("/usr/bin/tmux"):
     exit(1)
 print("Done.")
 
+print("Check vim...")
+if not os.path.exists("/usr/bin/vim"):
+    print("vim hasn't been installed, please install tmux first.")
+    exit(1)
+else:
+    shell_string = "vim --version | grep \"^VIM\\>\" | awk '{print $5}'"
+    p = subprocess.Popen(shell_string, shell=True, stdout=subprocess.PIPE)
+    vim_version = float(p.stdout.readlines()[0].decode('utf-8').strip())
+    if vim_version < 8.0:
+        print("VIM version < 8.0, need install VIM first. Do you want to install VIM from git?\n")
+        while True:
+            ans = input("yes or not:\n")
+            if ans == "not":
+                exit()
+            elif ans == "yes":
+                break
+        os.makedirs("/home/{}/Downloads".format(username))
+        os.chdir("/home/{}/Downloads".format(username))
+        subprocess.call("git clone git@github.com:vim/vim.git", shell=True)
+        os.chdir("/home/{}/Downloads/vim".format(username))
+        subprocess.call("./configure --with-features=huge --enable-pythoninterp \
+                --enable-rubyinterp --enable-luainterp --enable-perlinterp \
+                --with-python-config-dir=/usr/lib/python2.7/config/ \
+                --enable-gui=gtk2 --enable-cscope --prefix=/usr", shell=True)
+        subprocess.call("make -j4", shell=True)
+        subprocess.call("sudo make install", shell=True)
+print("Done.")
+exit()
+
 #config git
 print("Config git...")
 subprocess.Popen("git config --global user.name \"QiangXie\"", shell=True)
@@ -56,8 +86,9 @@ shell_string = "cat /etc/passwd | grep \"^" + username +"\\>\" | awk -v FS=: '{p
 p = subprocess.Popen(shell_string, shell=True, stdout=subprocess.PIPE)
 shell_type = p.stdout.readlines()[0].decode('utf-8').strip()
 if not shell_type == "/bin/zsh":
-    print("Default shell is {}, change default shell to zsh, please input your password:".format(shell_type))
-    subprocess.call("chsh -s /bin/zsh", shell = True)
+    print("Default shell is {}, \
+            change default shell to zsh, please input your password:".format(shell_type))
+    subprocess.call("chsh -s /bin/zsh", shell=True)
 print("Config zsh done.")
 
 #config tmux
@@ -68,18 +99,25 @@ print("Config tmux done.")
 
 #config vim 
 print("Config vim...")
-subprocess.call("cp ./.vimrc /home/{}/".format(username), shell = True)
+subprocess.call("cp ./.vimrc /home/{}/".format(username), shell=True)
 if not os.path.exists("/home/{}/.vim/bundle/Vundle.vim".format(username)):
-    subprocess.call("git clone https://github.com/VundleVim/Vundle.vim.git  /home/{}/.vim/bundle/Vundle.vim".format(username),
-    shell = True)
+    subprocess.call("git clone \
+            https://github.com/VundleVim/Vundle.vim.git  \
+            /home/{}/.vim/bundle/Vundle.vim".format(username), shell=True)
 else:
     shutil.rmtree("/home/{}/.vim/bundle/Vundle.vim".format(username))
-    subprocess.call("git clone https://github.com/VundleVim/Vundle.vim.git  /home/{}/.vim/bundle/Vundle.vim".format(username), 
-            shell = True)
-subprocess.call("vim +BundleInstall +qall", shell = True)
-subprocess.call("python /home/{}/.vim/bundle/YouCompleteMe/install.py".format(username), shell = True)
+    subprocess.call("git clone \
+            https://github.com/VundleVim/Vundle.vim.git  /home/{}/.vim/bundle/Vundle.vim"
+                    .format(username), shell=True)
+subprocess.call("vim +BundleInstall +qall", shell=True)
+subprocess.call("python /home/{}/.vim/bundle/YouCompleteMe/install.py".
+                format(username), shell=True)
 if not os.path.exists("/home/{}/.vim/colors".format(username)):
     os.mkdir("/home/{}/.vim/colors".format(username))
-subprocess.call("cp /home/{}/.vim/bundle/vim-colors-solarized/colors/solarized.vim /home/{}/.vim/colors/".format(username, username), shell=True)
-subprocess.call("cp /home/{}/.vim/bundle/molokai/colors/molokai.vim /home/{}/.vim/colors/".format(username, username), shell=True)
-print("Config vim done." )
+subprocess.call("cp \
+        /home/{}/.vim/bundle/vim-colors-solarized/colors/solarized.vim /home/{}/.vim/colors/"
+                .format(username, username), shell=True)
+subprocess.call("cp \
+        /home/{}/.vim/bundle/molokai/colors/molokai.vim /home/{}/.vim/colors/"
+                .format(username, username), shell=True)
+print("Config vim done.")
