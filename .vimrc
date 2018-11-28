@@ -44,12 +44,13 @@ Plugin 'Valloric/YouCompleteMe'
 "a tree explorer plugin for vim
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Lokaltog/vim-powerline'
+"Plugin 'Lokaltog/vim-powerline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'luochen1990/rainbow'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
-
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -83,9 +84,7 @@ nmap <F4> :NERDTreeToggle<cr>
 "indent Line setting
 let g:indentLine_char = '|'
 let g:indentLine_enabled = 1
-let g:molokai_original = 1
 let g:rainbow_active = 1
-let g:Powerline_symbols = 'fancy'
 
 
 "Quickly Run py file
