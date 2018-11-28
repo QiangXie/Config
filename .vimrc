@@ -6,8 +6,8 @@ set tabstop=4
 set backspace=indent,eol,start
 let mapleader=";"
 
-set nocompatible              " be iMproved, required
 "bracket automatic completion
+set nocompatible              " be iMproved, required
 inoremap ( ()<ESC>i
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap { {}<ESC>i
