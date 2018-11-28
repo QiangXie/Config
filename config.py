@@ -50,7 +50,7 @@ print("Config done.")
 #config zsh
 print("Config zsh...")
 if not os.path.exists("/home/{}/.zshrc".format(username)):
-    subprocess.call("cp ./.zshrc /home/{}/".format(username), shell = True)
+    subprocess.call("cp ./.zshrc /home/{}/".format(username), shell=True)
 
 shell_string = "cat /etc/passwd | grep \"^" + username +"\\>\" | awk -v FS=: '{print $7}'"
 p = subprocess.Popen(shell_string, shell=True, stdout=subprocess.PIPE)
@@ -63,7 +63,7 @@ print("Config zsh done.")
 #config tmux
 print("Config tmux...")
 if not os.path.exists("/home/{}/tmux.conf".format(username)):
-    subprocess.call("cp ./.tmux.conf /home/{}/".format(username), shell = True)
+    subprocess.call("cp ./.tmux.conf /home/{}/".format(username), shell=True)
 print("Config tmux done.")
 
 #config vim 
@@ -71,7 +71,7 @@ print("Config vim...")
 subprocess.call("cp ./.vimrc /home/{}/".format(username), shell = True)
 if not os.path.exists("/home/{}/.vim/bundle/Vundle.vim".format(username)):
     subprocess.call("git clone https://github.com/VundleVim/Vundle.vim.git  /home/{}/.vim/bundle/Vundle.vim".format(username),
-            shell = True)
+    shell = True)
 else:
     shutil.rmtree("/home/{}/.vim/bundle/Vundle.vim".format(username))
     subprocess.call("git clone https://github.com/VundleVim/Vundle.vim.git  /home/{}/.vim/bundle/Vundle.vim".format(username), 
