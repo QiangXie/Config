@@ -36,7 +36,7 @@ if not os.path.exists("~/.zshrc"):
     subprocess.call("cp ./.zshrc ~/", shell = True)
 
 username = getpass.getuser()
-shell_string = "cat /etc/passwd | grep " + username +" | awk -v FS=: '{print $7}'"
+shell_string = "cat /etc/passwd | grep \"^" + username +"\" | awk -v FS=: '{print $7}'"
 p = subprocess.Popen(shell_string, shell=True, stdout=subprocess.PIPE)
 shell_type = p.stdout.readlines()[0].decode('utf-8').strip()
 if not shell_type == "/bin/zsh":
