@@ -82,8 +82,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 nmap <F4> :NERDTreeToggle<cr>
 
 "indent Line setting
-let g:indentLine_char = '|'
+let g:indentLine_char = '┆'
 let g:indentLine_enabled = 1
+
+"rainbow setting
 let g:rainbow_active = 1
 
 
