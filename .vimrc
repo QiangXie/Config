@@ -6,15 +6,16 @@ set tabstop=4
 set backspace=indent,eol,start
 let mapleader=";"
 
+set nocompatible              " be iMproved, required
 "bracket automatic completion
-":inoremap ( ()<ESC>i
-":inoremap ) <c-r>=ClosePair(')')<CR>
-":inoremap { {}<ESC>i
-":inoremap } <c-r>=ClosePair('}')<CR>
-":inoremap [ []<ESC>i
-":inoremap ] <c-r>=ClosePair(']')<CR>
-":inoremap " ""<ESC>i
-":inoremap ' ''<ESC>i
+inoremap ( ()<ESC>i
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap { {}<ESC>i
+inoremap } <c-r>=ClosePair('}')<CR>
+inoremap [ []<ESC>i
+inoremap ] <c-r>=ClosePair(']')<CR>
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
 function! ClosePair(char)
 	if getline('.')[col('.') - 1] == a:char
 		return "\<Right>"
@@ -28,7 +29,6 @@ filetype plugin indent on
 
 set completeopt=longest,menu
 
-set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
