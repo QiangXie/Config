@@ -1,12 +1,11 @@
 syntax on "grammar highlighting
-set number "显示行数
-"set cursorline                " 突出显示当前行
-set autoindent
-set cindent
-set tabstop=4
+set number "display the number of lines
+set autoindent "automatic indentation
+set cindent "c indent
+set tabstop=4 
 set backspace=indent,eol,start
 
-"括号自动补全
+"bracket automatic completion
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
 :inoremap { {}<ESC>i
@@ -22,8 +21,10 @@ function! ClosePair(char)
 		return a:char
 	endif
 endfunction
+
+"file type detection plugin indent on
 filetype plugin indent on 
-"打开文件类型检测, 加了这句才可以用智能补全
+
 set completeopt=longest,menu
 
 set nocompatible              " be iMproved, required
@@ -46,7 +47,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'luochen1990/rainbow'
-"Plugin 'scrooloose/syntastic'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 
 
 " All of your Plugins must be added before the following line
@@ -64,7 +66,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-"NERD tree
+"NERD tree setting
 let NERDChristmasTree = 0
 let NERDTreeWinSize = 35
 let NERDTreeChDirMode = 2
@@ -86,17 +88,7 @@ let g:rainbow_active = 1
 let g:Powerline_symbols = 'fancy'
 
 
-"syntastic setting
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-"Quickly Run
+"Quickly Run py file
 map <F5> :call ComileRunGcc()<CR>
 
 func! ComileRunGcc()
@@ -112,3 +104,24 @@ func! ComileRunGcc()
 	endif
 endfunc
 
+"color scheme setting
+if has('gui_running')
+		set background=light
+else
+		set background=dark
+endif
+
+"use solarized
+set t_Co=256
+syntax enable
+colorscheme solarized
+let g:solarized_termcolors=256
+
+"use molokai
+"colorscheme molokai
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+highlight LineNr ctermfg=grey ctermbg=None

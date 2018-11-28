@@ -8,15 +8,32 @@ import getpass
 username = getpass.getuser()
 
 #htop
+print("Check htop...")
 if not os.path.exists("/usr/bin/htop"):
     print("htop hasn't been installed, please install htop first.")
     exit(1)
+print("Done.")
 
-#config git
-print("Config git...")
+print("Check git...")
 if not os.path.exists("/usr/bin/git"):
     print("git hasn't been installed, please install git first.")
     exit(1)
+print("Done.")
+
+print("Check zsh...")
+if not os.path.exists("/usr/bin/zsh"):
+    print("zsh hasn't been installed, please install zsh first.")
+    exit(1)
+print("Done.")
+
+print("Check tmux...")
+if not os.path.exists("/usr/bin/tmux"):
+    print("tmux hasn't been installed, please install tmux first.")
+    exit(1)
+print("Done.")
+
+#config git
+print("Config git...")
 subprocess.Popen("git config --global user.name \"QiangXie\"", shell=True)
 subprocess.Popen("git config --global user.email \"happyxieqiang@qq.com\"", shell=True)
 subprocess.Popen("git config --global alias.lg \"log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit --date=relative\"", shell=True)
@@ -32,9 +49,6 @@ print("Config done.")
 
 #config zsh
 print("Config zsh...")
-if not os.path.exists("/usr/bin/zsh"):
-    print("zsh hasn't been installed, please install zsh first.")
-    exit(1)
 if not os.path.exists("/home/{}/.zshrc".format(username)):
     subprocess.call("cp ./.zshrc /home/{}/".format(username), shell = True)
 
@@ -48,9 +62,6 @@ print("Config zsh done.")
 
 #config tmux
 print("Config tmux...")
-if not os.path.exists("/usr/bin/tmux"):
-    print("tmux hasn't been installed, please install tmux first.")
-    exit(1)
 if not os.path.exists("/home/{}/tmux.conf".format(username)):
     subprocess.call("cp ./.tmux.conf /home/{}/".format(username), shell = True)
 print("Config tmux done.")
@@ -67,4 +78,8 @@ else:
             shell = True)
 subprocess.call("vim +BundleInstall +qall", shell = True)
 subprocess.call("python /home/{}/.vim/bundle/YouCompleteMe/install.py".format(username), shell = True)
+if not os.path.exists("/home/{}/.vim/colors".format(username)):
+    os.mkdir("/home/{}/.vim/colors".format(username))
+subprocess.call("cp /home/{}/.vim/bundle/vim-colors-solarized/colors/solarized.vim /home/{}/.vim/colors/".format(username, username), shell=True)
+subprocess.call("cp /home/{}/.vim/bundle/molokai/colors/molokai.vim /home/{}/.vim/colors/".format(username, username), shell=True)
 print("Config vim done." )
