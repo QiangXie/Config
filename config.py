@@ -35,23 +35,24 @@ print("Done.")
 
 print("Check vim...")
 if not os.path.exists("/usr/bin/vim"):
-    print("vim hasn't been installed, please install tmux first.")
+    print("vim hasn't been installed, please install vim first.")
     exit(1)
 else:
     shell_string = "vim --version | grep \"^VIM\\>\" | awk '{print $5}'"
     p = subprocess.Popen(shell_string, shell=True, stdout=subprocess.PIPE)
     vim_version = float(p.stdout.readlines()[0].decode('utf-8').strip())
     if vim_version < 8.0:
-        print("VIM version < 8.0, need install VIM first. Do you want to install VIM from git?\n")
+        print("VIM version < 8.0, need install VIM first. Do you want to install VIM from git?")
         while True:
             ans = input("yes or not:\n")
             if ans == "not":
                 exit()
             elif ans == "yes":
                 break
-        os.makedirs("/home/{}/Downloads".format(username))
+        if not os.path.exists("/home/{}/Downloads".format(username)):
+            os.makedirs("/home/{}/Downloads".format(username))
         os.chdir("/home/{}/Downloads".format(username))
-        subprocess.call("git clone git@github.com:vim/vim.git", shell=True)
+        subprocess.call("git clone https://github.com/vim/vim.git", shell=True)
         os.chdir("/home/{}/Downloads/vim".format(username))
         subprocess.call("./configure --with-features=huge --enable-pythoninterp \
                 --enable-rubyinterp --enable-luainterp --enable-perlinterp \
@@ -59,8 +60,8 @@ else:
                 --enable-gui=gtk2 --enable-cscope --prefix=/usr", shell=True)
         subprocess.call("make -j4", shell=True)
         subprocess.call("sudo make install", shell=True)
+        os.chdir(cwd)
 print("Done.")
-exit()
 
 #config git
 print("Config git...")
