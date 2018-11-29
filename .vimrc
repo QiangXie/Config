@@ -53,6 +53,7 @@ Plugin 'tomasr/molokai'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0rp/ale'
+Plugin 'cjrh/vim-conda'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -104,6 +105,11 @@ nmap sn <Plug>(ale_next_wrap)
 nmap <Leader>s :ALEToggle<CR>
 nmap <Leader>d :ALEDetail<CR>
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}\ %{ALEGetStatusLine()}
+let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
+
+"vim conda setting
+map <F3> :CondaChangeEnv<CR>
+let g:conda_startup_msg_suppress = 1
 
 
 "Quickly Run py file
