@@ -4,6 +4,14 @@ import subprocess
 import shutil
 import getpass
 
+def ask():
+    while True:
+        ans = input("yes or not?\n")
+        if ans == "not":
+            exit(1)
+        elif ans == "yes":
+            break
+
 
 #get user name
 username = getpass.getuser()
@@ -12,44 +20,60 @@ cwd = os.getcwd()
 #htop
 print("Check htop...")
 if not os.path.exists("/usr/bin/htop"):
-    print("htop hasn't been installed, please install htop first.")
-    exit(1)
+    print("htop hasn't been installed, please install htop first.") 
+    print("Do you want to install htop?")
+    ask()
+    subprocess.call("sudo apt-get install htop", shell=True)
 print("Done.")
 
 print("Check git...")
 if not os.path.exists("/usr/bin/git"):
     print("git hasn't been installed, please install git first.")
-    exit(1)
+    print("Do you want to install git?")
+    ask()
+    subprocess.call("sudo apt-get install git", shell=True)
 print("Done.")
 
 print("Check zsh...")
 if not os.path.exists("/usr/bin/zsh"):
     print("zsh hasn't been installed, please install zsh first.")
-    exit(1)
+    print("Do you want to install zsh?")
+    ask()
+    subprocess.call("sudo apt-get install zsh", shell=True)
 print("Done.")
 
 print("Check tmux...")
 if not os.path.exists("/usr/bin/tmux"):
     print("tmux hasn't been installed, please install tmux first.")
-    exit(1)
+    print("Do you want to install tmux?")
+    ask()
+    subprocess.call("sudo apt-get install tmux", shell=True)
 print("Done.")
 
 print("Check vim...")
 if not os.path.exists("/usr/bin/vim"):
     print("vim hasn't been installed, please install vim first.")
-    exit(1)
+    print("Do you want to install vim?")
+    ask()
+    if not os.path.exists("/home/{}/Downloads".format(username)):
+        os.makedirs("/home/{}/Downloads".format(username))
+    os.chdir("/home/{}/Downloads".format(username))
+    subprocess.call("git clone https://github.com/vim/vim.git", shell=True)
+    os.chdir("/home/{}/Downloads/vim".format(username))
+    subprocess.call("./configure --with-features=huge --enable-pythoninterp \
+            --enable-rubyinterp --enable-luainterp --enable-perlinterp \
+            --with-python-config-dir=/usr/lib/python2.7/config/ \
+            --enable-gui=gtk2 --enable-cscope --prefix=/usr", shell=True)
+    subprocess.call("make -j4", shell=True)
+    subprocess.call("sudo make install", shell=True)
+    os.chdir(cwd)
 else:
     shell_string = "vim --version | grep \"^VIM\\>\" | awk '{print $5}'"
     p = subprocess.Popen(shell_string, shell=True, stdout=subprocess.PIPE)
     vim_version = float(p.stdout.readlines()[0].decode('utf-8').strip())
     if vim_version < 8.0:
         print("VIM version < 8.0, need install VIM first. Do you want to install VIM from git?")
-        while True:
-            ans = input("yes or not:\n")
-            if ans == "not":
-                exit()
-            elif ans == "yes":
-                break
+        ask()
         if not os.path.exists("/home/{}/Downloads".format(username)):
             os.makedirs("/home/{}/Downloads".format(username))
         os.chdir("/home/{}/Downloads".format(username))
