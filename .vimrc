@@ -3,6 +3,7 @@ set number "display the number of lines
 set autoindent "automatic indentation
 set cindent "c indent
 set tabstop=4 
+set shiftwidth=4
 set backspace=indent,eol,start
 let mapleader=";"
 
